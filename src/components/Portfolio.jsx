@@ -27,7 +27,7 @@ import {
   CheckCircle,
   AlertCircle,
   ShoppingCart,
-  Briefcase
+  Briefcase,
 } from "lucide-react";
 
 const Portfolio = () => {
@@ -367,27 +367,29 @@ const Portfolio = () => {
       file: "fullstack.pdf",
     },
   ];
-    
+
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
   const [showSuccess, setShowSuccess] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Create mailto link with all form data
-    const mailtoLink = `mailto:maarijwaseem7@gmail.com?subject=${encodeURIComponent(formData.subject || 'Portfolio Contact')}&body=${encodeURIComponent(
+    const mailtoLink = `mailto:maarijwaseem7@gmail.com?subject=${encodeURIComponent(
+      formData.subject || "Portfolio Contact"
+    )}&body=${encodeURIComponent(
       `Name: ${formData.name}
 Email: ${formData.email}
 Subject: ${formData.subject}
@@ -398,14 +400,14 @@ ${formData.message}
 ---
 Sent from Portfolio Contact Form`
     )}`;
-    
+
     // Open email client
     window.location.href = mailtoLink;
-    
+
     // Show success message and reset form
     setShowSuccess(true);
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    
+    setFormData({ name: "", email: "", subject: "", message: "" });
+
     // Hide success message after 3 seconds
     setTimeout(() => setShowSuccess(false), 3000);
   };
@@ -612,16 +614,17 @@ Sent from Portfolio Contact Form`
                 React.js, Node.js, NestJS, PHP, and Shopify.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start text-center">
                 <button
                   onClick={() => scrollToSection("projects")}
                   className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full hover:shadow-2xl hover:shadow-blue-500/25 transform hover:-translate-y-2 transition-all duration-300 font-semibold"
                 >
-                  <span className="flex items-center gap-2">
+                  <span className="flex items-center justify-center gap-2">
                     View My Work
                     <ExternalLink className="w-5 h-5 group-hover:rotate-45 transition-transform duration-300" />
                   </span>
                 </button>
+
                 <button
                   onClick={handleCVDownload}
                   className={`group border-2 border-blue-600 px-8 py-4 rounded-full transition-all duration-300 flex items-center justify-center gap-2 font-semibold ${
@@ -1530,139 +1533,150 @@ Sent from Portfolio Contact Form`
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
-          <div className="space-y-8">
-  <div>
-    <h3 className={`text-3xl font-bold mb-6 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
-      Let's Build Together
-    </h3>
-  </div>
-  
-  {[
-    {
-      icon: <Globe className="w-8 h-8" />,
-      title: "Web Applications",
-      description: "Modern, responsive websites and web apps",
-      gradient: "from-teal-500 to-cyan-500",
-    },
-    {
-      icon: <ShoppingCart className="w-8 h-8" />,
-      title: "E-commerce Stores",
-      description: "Complete online shopping solutions",
-      gradient: "from-green-500 to-emerald-500",
-    },
-    {
-      icon: <Briefcase className="w-8 h-8" />,
-      title: "Business Solutions",
-      description: "Custom tools to streamline your operations",
-      gradient: "from-indigo-500 to-purple-500",
-    },
-  ].map((project, index) => (
-    <div key={index} className="flex items-start gap-6">
-      <div
-        className={`bg-gradient-to-r ${project.gradient} p-4 rounded-xl shadow-lg flex-shrink-0`}
-      >
-        <div className="text-white">{project.icon}</div>
-      </div>
-      <div>
-        <h4
-          className={`text-xl font-bold mb-2 ${
-            isDarkMode ? "text-white" : "text-gray-900"
-          }`}
-        >
-          {project.title}
-        </h4>
-        <p
-          className={`text-lg ${
-            isDarkMode ? "text-gray-300" : "text-gray-600"
-          }`}
-        >
-          {project.description}
-        </p>
-      </div>
-    </div>
-  ))}
-</div>
+            <div className="space-y-8">
+              <div>
+                <h3
+                  className={`text-3xl font-bold mb-6 ${
+                    isDarkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
+                  Let's Build Together
+                </h3>
+              </div>
 
-<form onSubmit={handleSubmit}>
-            <div className="space-y-6">
-            {[
-        { label: "Name", type: "text", placeholder: "Your name", name: "name" },
-        {
-          label: "Email",
-          type: "email",
-          placeholder: "your.email@example.com",
-          name: "email"
-        },
-        {
-          label: "Subject",
-          type: "text",
-          placeholder: "Project discussion",
-          name: "subject"
-        },
-      ].map((field, index) => (
-        <div key={index}>
-          <label
-            className={`block text-sm font-semibold mb-3 ${
-              isDarkMode ? "text-gray-200" : "text-gray-700"
-            }`}
-          >
-            {field.label}
-          </label>
-          <input
-            type={field.type}
-            name={field.name}
-            value={formData[field.name]}
-            onChange={handleChange}
-            required
-            className={`w-full px-6 py-4 rounded-xl transition-all duration-300 focus:scale-105 ${
-              isDarkMode
-                ? "bg-gray-700 border-gray-600 text-white focus:border-blue-500"
-                : "bg-gray-50 border-gray-300 focus:border-blue-600"
-            } border-2 focus:outline-none`}
-            placeholder={field.placeholder}
-          />
-        </div>
-      ))}
-
-      <div>
-        <label
-          className={`block text-sm font-semibold mb-3 ${
-            isDarkMode ? "text-gray-200" : "text-gray-700"
-          }`}
-        >
-          Message
-        </label>
-        <textarea
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
-          required
-          rows="6"
-          className={`w-full px-6 py-4 rounded-xl transition-all duration-300 focus:scale-105 resize-none ${
-            isDarkMode
-              ? "bg-gray-700 border-gray-600 text-white focus:border-blue-500"
-              : "bg-gray-50 border-gray-300 focus:border-blue-600"
-          } border-2 focus:outline-none`}
-          placeholder="Tell me about your project..."
-        ></textarea>
-      </div>
-
-      {/* Success Message */}
-      {showSuccess && (
-        <div className="flex items-center gap-2 text-green-600 bg-green-50 p-4 rounded-xl">
-          <CheckCircle className="w-5 h-5" />
-          <span>Form submitted! Your email client should open now.</span>
-        </div>
-      )}
-
-      <button 
-        type="submit"
-        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-8 rounded-xl hover:shadow-2xl hover:shadow-blue-500/25 transform hover:-translate-y-2 transition-all duration-300 font-bold text-lg flex items-center justify-center gap-2"
-      >
-        <Send className="w-5 h-5" />
-        Send Message
-      </button>
+              {[
+                {
+                  icon: <Globe className="w-8 h-8" />,
+                  title: "Web Applications",
+                  description: "Modern, responsive websites and web apps",
+                  gradient: "from-teal-500 to-cyan-500",
+                },
+                {
+                  icon: <ShoppingCart className="w-8 h-8" />,
+                  title: "E-commerce Stores",
+                  description: "Complete online shopping solutions",
+                  gradient: "from-green-500 to-emerald-500",
+                },
+                {
+                  icon: <Briefcase className="w-8 h-8" />,
+                  title: "Business Solutions",
+                  description: "Custom tools to streamline your operations",
+                  gradient: "from-indigo-500 to-purple-500",
+                },
+              ].map((project, index) => (
+                <div key={index} className="flex items-start gap-6">
+                  <div
+                    className={`bg-gradient-to-r ${project.gradient} p-4 rounded-xl shadow-lg flex-shrink-0`}
+                  >
+                    <div className="text-white">{project.icon}</div>
+                  </div>
+                  <div>
+                    <h4
+                      className={`text-xl font-bold mb-2 ${
+                        isDarkMode ? "text-white" : "text-gray-900"
+                      }`}
+                    >
+                      {project.title}
+                    </h4>
+                    <p
+                      className={`text-lg ${
+                        isDarkMode ? "text-gray-300" : "text-gray-600"
+                      }`}
+                    >
+                      {project.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
+
+            <form onSubmit={handleSubmit}>
+              <div className="space-y-6">
+                {[
+                  {
+                    label: "Name",
+                    type: "text",
+                    placeholder: "Your name",
+                    name: "name",
+                  },
+                  {
+                    label: "Email",
+                    type: "email",
+                    placeholder: "your.email@example.com",
+                    name: "email",
+                  },
+                  {
+                    label: "Subject",
+                    type: "text",
+                    placeholder: "Project discussion",
+                    name: "subject",
+                  },
+                ].map((field, index) => (
+                  <div key={index}>
+                    <label
+                      className={`block text-sm font-semibold mb-3 ${
+                        isDarkMode ? "text-gray-200" : "text-gray-700"
+                      }`}
+                    >
+                      {field.label}
+                    </label>
+                    <input
+                      type={field.type}
+                      name={field.name}
+                      value={formData[field.name]}
+                      onChange={handleChange}
+                      required
+                      className={`w-full px-6 py-4 rounded-xl transition-all duration-300 focus:scale-105 ${
+                        isDarkMode
+                          ? "bg-gray-700 border-gray-600 text-white focus:border-blue-500"
+                          : "bg-gray-50 border-gray-300 focus:border-blue-600"
+                      } border-2 focus:outline-none`}
+                      placeholder={field.placeholder}
+                    />
+                  </div>
+                ))}
+
+                <div>
+                  <label
+                    className={`block text-sm font-semibold mb-3 ${
+                      isDarkMode ? "text-gray-200" : "text-gray-700"
+                    }`}
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows="6"
+                    className={`w-full px-6 py-4 rounded-xl transition-all duration-300 focus:scale-105 resize-none ${
+                      isDarkMode
+                        ? "bg-gray-700 border-gray-600 text-white focus:border-blue-500"
+                        : "bg-gray-50 border-gray-300 focus:border-blue-600"
+                    } border-2 focus:outline-none`}
+                    placeholder="Tell me about your project..."
+                  ></textarea>
+                </div>
+
+                {/* Success Message */}
+                {showSuccess && (
+                  <div className="flex items-center gap-2 text-green-600 bg-green-50 p-4 rounded-xl">
+                    <CheckCircle className="w-5 h-5" />
+                    <span>
+                      Form submitted! Your email client should open now.
+                    </span>
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-8 rounded-xl hover:shadow-2xl hover:shadow-blue-500/25 transform hover:-translate-y-2 transition-all duration-300 font-bold text-lg flex items-center justify-center gap-2"
+                >
+                  <Send className="w-5 h-5" />
+                  Send Message
+                </button>
+              </div>
             </form>
           </div>
         </div>
@@ -1719,13 +1733,13 @@ Sent from Portfolio Contact Form`
                     icon: <Linkedin className="w-6 h-6" />,
                     gradient: "from-blue-600 to-blue-800",
                     hover: "hover:from-blue-500 hover:to-blue-700",
-                    link: "https://linkedin.com/in/maarijwaseem2", 
+                    link: "https://linkedin.com/in/maarijwaseem2",
                   },
                   {
                     icon: <Mail className="w-6 h-6" />,
                     gradient: "from-red-600 to-red-800",
                     hover: "hover:from-red-500 hover:to-red-700",
-                    link: "mailto:maarijwaseem7@gmail.com", 
+                    link: "mailto:maarijwaseem7@gmail.com",
                   },
                 ].map((social, index) => (
                   <a
