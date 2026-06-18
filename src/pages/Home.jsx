@@ -6,13 +6,23 @@ import { Link } from "react-router-dom";
 const Home = () => {
   const { isDarkMode } = useTheme();
 
-  const handleCVDownload = () => {
-    const link = document.createElement("a");
-    link.href = "/cv.pdf";
-    link.download = "Syed_Abdul_Maarij_CV.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleCVDownload = async () => {
+    try {
+      const response = await fetch("/CV.pdf");
+      if (!response.ok) throw new Error("CV not found");
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "Syed_Abdul_Maarij_CV.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("CV download failed:", error);
+    }
   };
 
   return (
@@ -33,7 +43,7 @@ const Home = () => {
 
             <div className="text-xl md:text-3xl mb-8 font-semibold">
               <span className="bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
-                Full Stack Developer | UI/UX, AI Chatbots, Web Solutions
+                I build digital products that simplify how businesses work
               </span>
             </div>
 

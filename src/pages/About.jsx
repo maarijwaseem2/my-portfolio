@@ -92,8 +92,8 @@ const About = () => {
               I have contributed to the development of scalable web
               applications, robust APIs, and business-critical systems, with a
               strong emphasis on performance, reliability, and clean
-              architecture. Currently, I am working as a Backend Developer,
-              contributing to Alahdeen, a B2B marketplace platform in Pakistan.
+              architecture.               Currently, I am working as a Full Stack Developer at
+              Alahdeen, a B2B marketplace platform in Pakistan.
               My role involves building secure backend modules, designing
               RESTful APIs, and developing database-driven features.
             </p>

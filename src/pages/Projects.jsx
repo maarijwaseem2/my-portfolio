@@ -8,55 +8,48 @@ const Projects = () => {
   const projects = [
     {
       title: "Alahdeen B2B Marketplace",
-      category: "Production System",
-      image:
-        "https://placehold.co/800x500/0f3460/38bdf8?font=montserrat&text=ALAHDEEN%0AB2B+Marketplace",
-      technologies: ["React", "PHP", "MySQL", "Firebase", "OpenAI"],
+      category: "Production · Live",
+      image: "/alahdeen.png",
       description:
-        "Worked on core marketplace modules including lead management, supplier replies/metrics, chat/notifications, and performance improvements.",
+        "B2B marketplace connecting wholesalers and retailers — lead management, chat, notifications, and OpenAI-powered features with optimized REST APIs.",
       gradient: "from-[#0ea5e9] to-[#2563eb]",
       link: "https://alahdeen.com",
     },
     {
       title: "Khata Alahdeen",
-      category: "SaaS Platform",
-      image:
-        "https://placehold.co/800x500/064e3b/34d399?font=montserrat&text=KHATA+ALAHDEEN%0AAI+Bookkeeping",
-      technologies: ["React", "PHP", "MySQL"],
+      category: "AI Bookkeeping · Live",
+      image: "/khata.png",
       description:
-        "An AI-powered digital bookkeeping and ledger management platform integrated within the Alahdeen ecosystem to track debits, credits, and transactions.",
+        "AI-powered digital khata for wholesalers and retailers to track debits, credits, and daily transactions within the Alahdeen ecosystem.",
       gradient: "from-[#10b981] to-[#047857]",
       link: "https://khata.alahdeen.com",
     },
     {
-      title: "Go Green (FYP)",
-      category: "Full Stack App",
-      image: "/p5.jpeg",
-      technologies: ["React.js", "NestJS", "Machine Learning"],
+      title: "AI Content Studio",
+      category: "Full-Stack AI SaaS · Live",
+      image: "/ai-content.jfif",
       description:
-        "Final Year Project focused on environmental sustainability, specifically targeting tree plantation initiatives incorporating AI Chatbots and intelligent tracking.",
-      gradient: "from-[#3ba755] to-[#9be15d]",
-      link: "https://github.com/maarijwaseem2/Environment-system",
+        "AI SaaS that generates SEO meta titles and descriptions, with credit-based plans and an admin portal. Built with React, NestJS, and PostgreSQL.",
+      gradient: "from-[#8b5cf6] to-[#6366f1]",
+      link: "https://ai-content-studio-liard.vercel.app",
     },
     {
-      title: "SaasAdmin - Professional Dashboard",
-      category: "Web App",
-      image: "/p4.jpeg",
-      technologies: ["React Native", "Firebase", "Redux"],
+      title: "ServiceSync Pro",
+      category: "Home-Services Marketplace · Live",
+      image: "/service.png",
       description:
-        "A modern, responsive admin dashboard for SaaS applications built with React, TypeScript, and Tailwind CSS",
-      gradient: "from-[#71a5f8] to-[#a8c9fb]",
-      link: "https://roaring-biscotti-47f9e4.netlify.app/",
+        "Two-sided marketplace linking verified service providers with customers — separate accounts, admin verification, and search-and-request workflow.",
+      gradient: "from-[#f59e0b] to-[#ea580c]",
+      link: "https://servicesync-pro.vercel.app",
     },
     {
-      title: "LuxeStay - Luxury Hotel Booking Platform",
-      category: "Web App",
-      image: "/p3.jpeg",
-      technologies: ["Next.js", "TypeScript", "PostgreSQL"],
+      title: "CineSlot",
+      category: "Cinema Booking · Live",
+      image: "/movie.jfif",
       description:
-        "Luxury hotels, premium accommodation, resort booking, travel, hospitality, vacation, luxury travel.",
-      gradient: "from-[#efb921] to-[#ffd75e]",
-      link: "https://gorgeous-parfait-1507b0.netlify.app/",
+        "Cinema booking app with real-time seat selection, showtime browsing, and an admin panel for movies, schedules, and seating layouts.",
+      gradient: "from-[#ef4444] to-[#dc2626]",
+      link: "https://maarijwaseem2-showtime-buddy.vercel.app",
     },
   ];
 
@@ -81,8 +74,7 @@ const Projects = () => {
               isDarkMode ? "text-gray-300" : "text-gray-600"
             }`}
           >
-            Here are some of my recent projects that showcase my skills and
-            creativity
+            Production systems and full-stack products I have built and shipped
           </p>
         </div>
 
@@ -103,19 +95,21 @@ const Projects = () => {
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
-                  <div className="text-center">
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-white text-gray-900 px-6 py-3 rounded-full font-semibold hover:scale-110 transition-transform duration-300 flex items-center gap-2 mx-auto"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      View Project
-                    </a>
+                {project.link && (
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+                    <div className="text-center">
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-white text-gray-900 px-6 py-3 rounded-full font-semibold hover:scale-110 transition-transform duration-300 flex items-center gap-2 mx-auto"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        View Project
+                      </a>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
 
               {/* Project Details */}

@@ -6,40 +6,39 @@ const Experience = () => {
 
   const experiences = [
     {
-      title: "Junior Backend Developer",
+      title: "Full Stack Developer",
       company: "Alahdeen B2B",
-      period: "Sep 2025 - Present",
+      location: "Karachi, Pakistan (On-site)",
+      period: "May 2025 - Present",
       description:
-        "Working as a Backend Developer using PHP, contributing to product-based applications and backend development tasks.",
-      technologies: ["React", "PHP", "Laravel", "MySQL"],
-    },
-    {
-      title: "Shopify Developer",
-      company: "AheadTeach360,",
-      period: "July 2025 - Aug 2025",
-      description:
-        "Currently working on Shopify store customization and app development, implementing custom features with Liquid, JavaScript, and Shopify APIs while enhancing UI/UX and performance.",
-      technologies: [
-        "Shopify CLI",
-        "Liquid, Metafields",
-        "Theme Customization",
-        "Admin & Storefront APIs",
-      ],
+        "Building production PHP/MySQL APIs for a B2B marketplace — leads, quotes, chat, and onboarding. Integrated OpenAI for AI workflows, Firebase for real-time chat, and improved API performance with caching and pagination. Also involved in AWS deployments and secure backend practices.",
+      technologies: ["React", "PHP", "MySQL", "Firebase", "OpenAI", "AWS"],
     },
     {
       title: "Full Stack Developer",
       company: "Citrok",
+      location: "Lahore, Pakistan (Remote)",
       period: "May 2024 - April 2025",
       description:
-        "Developed and optimized RESTful APIs, implemented scalable databases with MongoDB and MySQL, integrated third-party tools, and collaborated with teams using Agile practices to deliver high-quality software.",
+        "Developed and optimized RESTful APIs (30% faster response times), worked with MongoDB and MySQL, and integrated third-party tools. Collaborated in an agile team on client projects from planning to delivery.",
       technologies: [
         "TypeScript",
-        "Node.js/Nest.js",
-        "Reactjs",
-        "PostgreSQL",
-        "Rest API",
-        "Git/GitHub",
+        "NestJS",
+        "React.js",
+        "MongoDB",
+        "MySQL",
+        "REST API",
+        "Git",
       ],
+    },
+    {
+      title: "Associate Software Engineer, Intern",
+      company: "Citrok",
+      location: "Lahore, Pakistan (Remote)",
+      period: "Feb 2024 - May 2024",
+      description:
+        "Gained hands-on experience with NestJS, TypeORM, and TypeScript on client projects, plus frontend work with React, HTML, and CSS.",
+      technologies: ["NestJS", "TypeORM", "TypeScript", "React.js", "Git"],
     },
   ];
 
@@ -110,10 +109,15 @@ const Experience = () => {
                     >
                       {exp.title}
                     </h3>
-                    <div
-                      className={`font-bold text-lg mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent`}
-                    >
+                    <div className="font-bold text-lg mb-1 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                       {exp.company}
+                    </div>
+                    <div
+                      className={`text-sm mb-4 ${
+                        isDarkMode ? "text-gray-400" : "text-gray-500"
+                      }`}
+                    >
+                      {exp.location}
                     </div>
                     <p
                       className={`leading-relaxed mb-4 ${
