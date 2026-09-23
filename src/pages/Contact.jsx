@@ -51,7 +51,7 @@ const Contact = () => {
 
     setStatus("sending");
     try {
-      const res = await fetch("https://api.web3forms.com/api/submit", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
