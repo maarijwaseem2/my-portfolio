@@ -1,137 +1,136 @@
 import React from "react";
 import { useTheme } from "../components/ThemeContext";
+import Reveal from "../components/Reveal";
 import {
-  Code,
-  Palette,
-  Server,
-  Database,
-  ShoppingBag,
-  Bot,
-  PenTool,
-  Search,
-  BarChart,
+  Code, Workflow, Database, Cloud, Bot, ShoppingBag, Palette, Search,
 } from "lucide-react";
+
+const services = [
+  {
+    icon: Code,
+    title: "Full-Stack Web Development",
+    description:
+      "End-to-end web applications with modern architectures — scalable backends paired with fast, responsive frontends.",
+    gradient: "from-indigo-500 to-cyan-500",
+  },
+  {
+    icon: Workflow,
+    title: "API Development & Integration",
+    description:
+      "Clean, well-documented REST APIs plus third-party and payment integrations (Stripe, Swagger/OpenAPI) other systems can rely on.",
+    gradient: "from-blue-500 to-cyan-500",
+  },
+  {
+    icon: Database,
+    title: "Database Architecture",
+    description:
+      "Well-structured schemas, indexing, and query optimization across MySQL, PostgreSQL, and MongoDB — modeled for integrity and scale.",
+    gradient: "from-violet-500 to-indigo-500",
+  },
+  {
+    icon: Cloud,
+    title: "Cloud Deployment & DevOps",
+    description:
+      "Deploying and scaling apps on AWS with secure configuration, caching, and reliable release workflows.",
+    gradient: "from-sky-500 to-blue-600",
+  },
+  {
+    icon: Bot,
+    title: "AI Chatbot Development",
+    description:
+      "Intelligent chatbots built on OpenAI APIs and modern NLP to automate customer interactions effectively.",
+    gradient: "from-fuchsia-500 to-purple-500",
+  },
+  {
+    icon: ShoppingBag,
+    title: "Shopify Development",
+    description:
+      "Custom Shopify themes, headless extensions, and e-commerce builds tuned for performance and conversion.",
+    gradient: "from-teal-500 to-blue-500",
+  },
+  {
+    icon: Palette,
+    title: "UI/UX Design",
+    description:
+      "Intuitive, modern interfaces designed with clear hierarchy, accessibility, and conversion in mind.",
+    gradient: "from-pink-500 to-rose-500",
+  },
+  {
+    icon: Search,
+    title: "SEO Optimization",
+    description:
+      "On-page and technical SEO to grow organic visibility and drive meaningful, qualified traffic.",
+    gradient: "from-emerald-500 to-teal-500",
+  },
+];
 
 const Services = () => {
   const { isDarkMode } = useTheme();
 
-  const services = [
-    {
-      icon: <Code className="w-10 h-10" />,
-      title: "Full Stack Web Development",
-      description:
-        "End-to-end web applications with modern architectures. Specializing in highly scalable backends and rich responsive frontends.",
-      gradient: "from-blue-500 to-cyan-500",
-    },
-    {
-      icon: <Database className="w-10 h-10" />,
-      title: "Database Design",
-      description:
-        "Robust data modeling, schema optimization, and deployment using MySQL, PostgreSQL and other modern database systems.",
-      gradient: "from-indigo-500 to-purple-500",
-    },
-    {
-      icon: <ShoppingBag className="w-10 h-10" />,
-      title: "Shopify Development",
-      description:
-        "Custom Shopify themes, headless extensions, and e-commerce solutions geared for performance and heightened conversion rates.",
-      gradient: "from-teal-500 to-blue-500",
-    },
-    {
-      icon: <Bot className="w-10 h-10" />,
-      title: "AI Chatbot Development",
-      description:
-        "Intelligent chatbot engineering utilizing OpenAI APIs and modern NLP frameworks to automate customer interactions effectively.",
-      gradient: "from-purple-500 to-pink-500",
-    },
-    {
-      icon: <Palette className="w-10 h-10" />,
-      title: "UI/UX Design",
-      description:
-        "Designing intuitive, user-friendly, and modern aesthetic interfaces with optimal conversion funnels and accessibility in mind.",
-      gradient: "from-pink-500 to-rose-500",
-    },
-    {
-      icon: <Search className="w-10 h-10" />,
-      title: "SEO Optimization",
-      description:
-        "Advanced on-page and technical SEO strategies to increase organic search visibility and drive meaningful traffic.",
-      gradient: "from-emerald-500 to-teal-500",
-    },
-    {
-      icon: <BarChart className="w-10 h-10" />,
-      title: "Business & Data Analytics",
-      description:
-        "Translating raw business data into meaningful metrics, aiding data-driven decision making and pipeline construction.",
-      gradient: "from-orange-500 to-yellow-500",
-    },
-    {
-      icon: <PenTool className="w-10 h-10" />,
-      title: "Social Media content writing",
-      description:
-        "Engaging and brand-aligned content strategies crafted precisely for social engagement and digital outreach.",
-      gradient: "from-yellow-400 to-orange-500",
-    },
-  ];
-
   return (
-    <section
-      className={`py-10 transition-all duration-500 ${
-        isDarkMode ? "bg-gray-900" : "bg-gray-50"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+    <section id="services" className="relative py-10 sm:py-14">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Reveal className="mb-10 text-center">
           <h2
-            className={`text-5xl md:text-6xl font-bold mb-6 ${
-              isDarkMode ? "text-white" : "text-gray-900"
+            className={`font-display text-4xl font-bold md:text-5xl ${
+              isDarkMode ? "text-white" : "text-slate-900"
             }`}
           >
             Services
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-6"></div>
+          <div className="mx-auto mt-4 h-1 w-20 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-400" />
           <p
-            className={`text-xl max-w-3xl mx-auto ${
-              isDarkMode ? "text-gray-300" : "text-gray-600"
+            className={`mx-auto mt-4 max-w-2xl text-lg ${
+              isDarkMode ? "text-slate-400" : "text-slate-600"
             }`}
           >
-            I offer comprehensive digital solutions to help bring your ideas to
-            life
+            Digital solutions to help bring your ideas to life
           </p>
-        </div>
+        </Reveal>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className={`group p-6 rounded-2xl transition-all duration-500 hover:scale-105 hover:shadow-2xl ${
-                isDarkMode
-                  ? "bg-gray-800 hover:bg-gray-700 border border-gray-700"
-                  : "bg-white hover:bg-gray-50 shadow-lg"
-              }`}
-              style={{ animationDelay: `${index * 0.2}s` }}
-            >
-              <div
-                className={`bg-gradient-to-r ${service.gradient} p-4 rounded-xl inline-block mb-6 group-hover:scale-110 transition-transform duration-300`}
-              >
-                <div className="text-white">{service.icon}</div>
-              </div>
-              <h3
-                className={`text-2xl font-bold mb-4 ${
-                  isDarkMode ? "text-white" : "text-gray-900"
-                }`}
-              >
-                {service.title}
-              </h3>
-              <p
-                className={`leading-relaxed ${
-                  isDarkMode ? "text-gray-300" : "text-gray-600"
-                }`}
-              >
-                {service.description}
-              </p>
-            </div>
-          ))}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {services.map((service, index) => {
+            const Icon = service.icon;
+            return (
+              <Reveal key={index} delay={Math.min(index * 0.05, 0.3)}>
+                <div
+                  className={`group relative h-full overflow-hidden rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-2 ${
+                    isDarkMode
+                      ? "border-white/10 bg-white/[0.04] hover:border-indigo-400/40 hover:bg-white/[0.07] hover:shadow-2xl hover:shadow-indigo-500/10"
+                      : "border-slate-200 bg-white hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/10"
+                  }`}
+                >
+                  <span
+                    className={`absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 bg-gradient-to-r ${service.gradient} transition-transform duration-300 group-hover:scale-x-100`}
+                  />
+                  <span
+                    className={`pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-gradient-to-br ${service.gradient} opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-30`}
+                  />
+                  <div
+                    className={`relative mb-5 inline-flex rounded-xl bg-gradient-to-br ${service.gradient} p-3.5 shadow-lg transition-all duration-300 group-hover:-rotate-6 group-hover:scale-110`}
+                  >
+                    <Icon className="h-7 w-7 text-white" />
+                  </div>
+                  <h3
+                    className={`relative font-display text-lg font-bold transition-colors duration-300 ${
+                      isDarkMode
+                        ? "text-white group-hover:text-indigo-300"
+                        : "text-slate-900 group-hover:text-indigo-600"
+                    }`}
+                  >
+                    {service.title}
+                  </h3>
+                  <p
+                    className={`relative mt-2 text-sm leading-relaxed ${
+                      isDarkMode ? "text-slate-400" : "text-slate-600"
+                    }`}
+                  >
+                    {service.description}
+                  </p>
+                </div>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

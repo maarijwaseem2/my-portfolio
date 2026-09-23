@@ -1,7 +1,10 @@
-import React from "react";
-import { ExternalLink, Download } from "lucide-react";
+import React, { Suspense, lazy } from "react";
+import { ExternalLink, Download, ChevronDown } from "lucide-react";
 import { useTheme } from "../components/ThemeContext";
-import { Link } from "react-router-dom";
+
+// Lazy-load the WebGL scene so three.js ships as its own chunk and the hero
+// text + CTAs paint immediately.
+const Hero3D = lazy(() => import("../components/Hero3D"));
 
 const Home = () => {
   const { isDarkMode } = useTheme();
@@ -10,7 +13,6 @@ const Home = () => {
     try {
       const response = await fetch("/CV.pdf");
       if (!response.ok) throw new Error("CV not found");
-
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
@@ -26,90 +28,101 @@ const Home = () => {
   };
 
   return (
-    <section className="min-h-[calc(100vh-6rem)] flex items-center justify-center py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="flex flex-col lg:flex-row items-center gap-12">
-          <div className="flex-1 text-center lg:text-left">
-            <h1
-              className={`text-4xl md:text-6xl lg:text-7xl font-bold mb-6 ${
-                isDarkMode ? "text-white" : "text-gray-900"
+    <section
+      id="home"
+      className="relative flex min-h-screen items-center px-4 pb-16 pt-28 sm:px-6 lg:px-8"
+    >
+      <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-8">
+        {/* Left: copy */}
+        <div className="animate-fade-up text-center lg:text-left">
+          <span
+            className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-medium ${
+              isDarkMode
+                ? "border-white/10 bg-white/5 text-slate-300"
+                : "border-slate-200 bg-white text-slate-600"
+            }`}
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+            </span>
+            Open to opportunities
+          </span>
+
+          <h1
+            className={`mt-6 font-display text-5xl font-bold leading-[1.05] md:text-6xl lg:text-7xl ${
+              isDarkMode ? "text-white" : "text-slate-900"
+            }`}
+          >
+            Syed Abdul{" "}
+            <span className="animate-gradient bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-300 bg-clip-text text-transparent">
+              Maarij
+            </span>
+          </h1>
+
+          <p
+            className={`mx-auto mt-5 max-w-xl font-display text-xl font-medium md:text-2xl lg:mx-0 ${
+              isDarkMode ? "text-slate-200" : "text-slate-700"
+            }`}
+          >
+            Full-Stack Engineer building scalable products that businesses run
+            on.
+          </p>
+
+          <p
+            className={`mx-auto mt-5 max-w-xl text-base leading-relaxed md:text-lg lg:mx-0 ${
+              isDarkMode ? "text-slate-400" : "text-slate-600"
+            }`}
+          >
+            I build production-grade systems end to end &mdash; secure backends
+            and clean REST APIs behind fast, modern React and Next.js frontends.
+            Lately that means shipping AI-powered features and cloud deployments
+            that hold up under real traffic.
+          </p>
+
+          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
+            <a
+              href="#projects"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 to-violet-600 px-7 py-3.5 font-semibold text-white shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/40"
+            >
+              View my work
+              <ExternalLink className="h-4 w-4 transition-transform duration-300 group-hover:rotate-45" />
+            </a>
+            <button
+              onClick={handleCVDownload}
+              className={`group inline-flex items-center justify-center gap-2 rounded-full border-2 px-7 py-3.5 font-semibold transition-all duration-300 hover:-translate-y-1 ${
+                isDarkMode
+                  ? "border-white/15 text-white hover:border-indigo-400 hover:bg-white/5"
+                  : "border-slate-300 text-slate-800 hover:border-indigo-400 hover:bg-white"
               }`}
             >
-              Hi, I'm{" "}
-              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-pulse">
-                Syed Abdul Maarij
-              </span>
-            </h1>
-
-            <div className="text-xl md:text-3xl mb-8 font-semibold">
-              <span className="bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
-                I build digital products that simplify how businesses work
-              </span>
-            </div>
-
-            <p
-              className={`text-lg md:text-xl mb-8 max-w-2xl leading-relaxed ${
-                isDarkMode ? "text-gray-400" : "text-gray-600"
-              }`}
-            >
-              Passionate about building impactful digital solutions. I
-              specialize in developing scalable backend systems, modern
-              responsive frontends, and custom e-commerce applications. My skill
-              set includes JavaScript, TypeScript, React.js,
-              Node.js/Express.js/Nest.js, PHP, MySQL, and PostgreSQL. I also
-              have experience with REST APIs, authentication systems, and
-              Shopify development, focusing on clean code, performance, and
-              user-friendly design.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start text-center">
-              <Link
-                to="/projects"
-                className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full hover:shadow-2xl hover:shadow-blue-500/25 transform hover:-translate-y-2 transition-all duration-300 font-semibold inline-flex items-center justify-center"
-              >
-                <span className="flex items-center justify-center gap-2">
-                  View My Work
-                  <ExternalLink className="w-5 h-5 group-hover:rotate-45 transition-transform duration-300" />
-                </span>
-              </Link>
-
-              <button
-                onClick={handleCVDownload}
-                className={`group border-2 border-blue-600 px-8 py-4 rounded-full transition-all duration-300 flex items-center justify-center gap-2 font-semibold ${
-                  isDarkMode
-                    ? "text-blue-400 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-500/25"
-                    : "text-blue-600 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-500/25"
-                } transform hover:-translate-y-2`}
-              >
-                <Download className="w-5 h-5 group-hover:animate-bounce" />
-                Download CV
-              </button>
-            </div>
+              <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
+              Download CV
+            </button>
           </div>
+        </div>
 
-          <div className="flex-1 max-w-md relative mt-12 lg:mt-0">
-            <div className="relative group">
-              {/* Outer decorative ring */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500 animate-pulse"></div>
-
-              {/* Main profile area */}
-              <div
-                className={`relative w-72 h-72 md:w-80 md:h-80 rounded-full mx-auto flex items-center justify-center transition-all duration-500 overflow-hidden ${
-                  isDarkMode
-                    ? "bg-gray-800 text-gray-400"
-                    : "bg-gray-200 text-gray-500"
-                } border-4 border-white/10`}
-              >
-                <img
-                  src="https://avatars.githubusercontent.com/maarijwaseem2"
-                  alt="Syed Abdul Maarij"
-                  className="w-full h-full object-cover rounded-full transform group-hover:scale-110 transition-transform duration-500"
-                />
-              </div>
-            </div>
+        {/* Right: 3D centerpiece */}
+        <div className="relative order-first lg:order-last">
+          <div className="relative mx-auto aspect-square w-full max-w-[26rem]">
+            <div className="absolute inset-6 rounded-full bg-gradient-to-tr from-indigo-500/20 via-violet-500/10 to-transparent blur-2xl" />
+            <Suspense fallback={<div className="absolute inset-0" />}>
+              <Hero3D className="absolute inset-0 h-full w-full" />
+            </Suspense>
           </div>
         </div>
       </div>
+
+      {/* Scroll hint */}
+      <a
+        href="#about"
+        aria-label="Scroll to about"
+        className={`absolute bottom-6 left-1/2 hidden -translate-x-1/2 lg:block ${
+          isDarkMode ? "text-slate-500" : "text-slate-400"
+        }`}
+      >
+        <ChevronDown className="h-6 w-6 animate-float" />
+      </a>
     </section>
   );
 };

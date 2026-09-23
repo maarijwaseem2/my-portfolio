@@ -1,117 +1,135 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Github, Linkedin, Mail, Phone, MapPin } from "lucide-react";
 import { useTheme } from "./ThemeContext";
+
+const quickLinks = [
+  { name: "About", href: "#about" },
+  { name: "Skills", href: "#skills" },
+  { name: "Experience", href: "#experience" },
+  { name: "Education", href: "#education" },
+  { name: "Projects", href: "#projects" },
+  { name: "Services", href: "#services" },
+  { name: "Contact", href: "#contact" },
+];
+
+const socials = [
+  { icon: Github, link: "https://github.com/maarijwaseem2", label: "GitHub" },
+  { icon: Linkedin, link: "https://linkedin.com/in/maarijwaseem2", label: "LinkedIn" },
+  { icon: Mail, link: "mailto:maarijwaseem7@gmail.com", label: "Email" },
+];
 
 const Footer = () => {
   const { isDarkMode } = useTheme();
 
-  const footerLinks = [
-    { name: "About", path: "/about" },
-    { name: "Education", path: "/education" },
-    { name: "Experience", path: "/experience" },
-    { name: "Services", path: "/services" },
-    { name: "Projects", path: "/projects" },
-    { name: "Contact", path: "/contact" },
-  ];
-
-  const socialLinks = [
-    {
-      icon: <Github className="w-6 h-6" />,
-      gradient: "from-gray-600 to-gray-800",
-      hover: "hover:from-gray-500 hover:to-gray-700",
-      link: "https://github.com/maarijwaseem2",
-    },
-    {
-      icon: <Linkedin className="w-6 h-6" />,
-      gradient: "from-blue-600 to-blue-800",
-      hover: "hover:from-blue-500 hover:to-blue-700",
-      link: "https://linkedin.com/in/maarijwaseem2",
-    },
-    {
-      icon: <Mail className="w-6 h-6" />,
-      gradient: "from-red-600 to-red-800",
-      hover: "hover:from-red-500 hover:to-red-700",
-      link: "mailto:maarijwaseem7@gmail.com",
-    },
-  ];
-
   return (
     <footer
-      className={`py-10 transition-all duration-500 ${
-        isDarkMode ? "bg-gray-900 border-t border-gray-700" : "bg-gray-900"
-      } text-white`}
+      className={`relative z-10 border-t ${
+        isDarkMode
+          ? "border-white/10 bg-ink/80"
+          : "border-slate-200 bg-white/80"
+      } backdrop-blur`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-4 gap-8">
-          <div className="col-span-2">
-            <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+      <div className="mx-auto max-w-7xl px-4 py-11 sm:px-6 lg:px-8">
+        <div className="grid gap-10 md:grid-cols-4">
+          <div className="md:col-span-2">
+            <h3 className="bg-gradient-to-r from-indigo-400 to-cyan-300 bg-clip-text font-display text-2xl font-bold text-transparent">
               Syed Abdul Maarij
             </h3>
-            <p className="text-gray-400 mb-6 max-w-md leading-relaxed">
-              Passionate about building impactful digital solutions. I
-              specialize in developing scalable backend systems, modern
-              responsive frontends, and custom e-commerce applications using
-              JavaScript, TypeScript, React.js, Node.js/Express.js/Nest.js, PHP,
-              and Shopify.
+            <p
+              className={`mt-4 max-w-md leading-relaxed ${
+                isDarkMode ? "text-slate-400" : "text-slate-600"
+              }`}
+            >
+              Full-stack engineer focused on scalable backends, clean APIs, and
+              modern web apps. Currently building B2B systems at Alahdeen — open
+              to new opportunities and freelance work.
             </p>
-            <div className="flex gap-4">
-              {socialLinks.map((social, index) => (
+            <div className="mt-6 flex gap-3">
+              {socials.map((s) => {
+                const Icon = s.icon;
+                return (
+                  <a
+                    key={s.label}
+                    href={s.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className={`flex h-11 w-11 items-center justify-center rounded-xl border transition-all duration-300 hover:-translate-y-1 ${
+                      isDarkMode
+                        ? "border-white/10 bg-white/5 text-slate-300 hover:border-indigo-400 hover:text-white"
+                        : "border-slate-200 bg-white text-slate-600 hover:border-indigo-400 hover:text-indigo-600"
+                    }`}
+                  >
+                    <Icon className="h-5 w-5" />
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+
+          <div>
+            <h4
+              className={`font-display text-sm font-semibold ${
+                isDarkMode ? "text-white" : "text-slate-900"
+              }`}
+            >
+              Quick links
+            </h4>
+            <div className="mt-4 space-y-2.5">
+              {quickLinks.map((link) => (
                 <a
-                  key={index}
-                  href={social.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`bg-gradient-to-r ${social.gradient} ${social.hover} p-3 rounded-lg transition-all duration-300 hover:scale-110 hover:shadow-lg`}
+                  key={link.name}
+                  href={link.href}
+                  className={`block text-sm transition-colors duration-200 ${
+                    isDarkMode
+                      ? "text-slate-400 hover:text-white"
+                      : "text-slate-600 hover:text-indigo-600"
+                  }`}
                 >
-                  {social.icon}
+                  {link.name}
                 </a>
               ))}
             </div>
           </div>
 
           <div>
-            <h4 className="text-xl font-bold mb-6">Quick Links</h4>
-            <div className="space-y-3">
-              {footerLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  className="block text-gray-400 hover:text-white hover:translate-x-2 transition-all duration-300 font-medium"
-                >
-                  → {link.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h4 className="text-xl font-bold mb-6">Contact Info</h4>
-            <div className="space-y-4 text-gray-400">
-              <div className="flex items-center gap-3">
-                <MapPin className="w-5 h-5 text-blue-400" />
-                <span>Karachi, Pakistan</span>
+            <h4
+              className={`font-display text-sm font-semibold ${
+                isDarkMode ? "text-white" : "text-slate-900"
+              }`}
+            >
+              Get in touch
+            </h4>
+            <div
+              className={`mt-4 space-y-3 text-sm ${
+                isDarkMode ? "text-slate-400" : "text-slate-600"
+              }`}
+            >
+              <div className="flex items-center gap-2.5">
+                <MapPin className="h-4 w-4 text-indigo-400" />
+                Karachi, Pakistan
               </div>
-              <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-green-400" />
-                <span>+92 3240236991</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-red-400" />
-                <span>maarijwaseem7@gmail.com</span>
-              </div>
+              <a href="tel:+923240236991" className="flex items-center gap-2.5 hover:text-indigo-400">
+                <Phone className="h-4 w-4 text-cyan-400" />
+                +92 324 0236991
+              </a>
+              <a href="mailto:maarijwaseem7@gmail.com" className="flex items-center gap-2.5 hover:text-indigo-400">
+                <Mail className="h-4 w-4 text-violet-400" />
+                maarijwaseem7@gmail.com
+              </a>
             </div>
           </div>
         </div>
 
-        {/* Bottom Footer */}
-        <div className="border-t border-gray-800 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-center items-center gap-4">
-            <p className="text-gray-400">
-              &copy; 2025 Syed Abdul Maarij. Designed &amp; Built with ❤️ in
-              Pakistan
-            </p>
-          </div>
+        <div
+          className={`mt-12 border-t pt-8 text-center text-sm ${
+            isDarkMode
+              ? "border-white/10 text-slate-500"
+              : "border-slate-200 text-slate-500"
+          }`}
+        >
+          &copy; {new Date().getFullYear()} Syed Abdul Maarij. Built with React,
+          Tailwind &amp; three.js in Pakistan.
         </div>
       </div>
     </footer>

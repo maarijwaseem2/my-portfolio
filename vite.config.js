@@ -5,8 +5,17 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   build: {
     outDir: "dist",
-    sourcemap: true, // Enable source maps for easier debugging
-    chunkSizeWarningLimit: 1000 // default is 500
+    sourcemap: false,
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          three: ["three"],
+          motion: ["framer-motion"],
+          vendor: ["react", "react-dom", "react-router-dom"],
+        },
+      },
+    },
   },
   plugins: [react()],
   server: {

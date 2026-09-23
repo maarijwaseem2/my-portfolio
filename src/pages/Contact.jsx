@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, Suspense, lazy } from "react";
 import { useTheme } from "../components/ThemeContext";
+import Reveal from "../components/Reveal";
 import {
-  Send,
-  CheckCircle,
-  Smartphone,
-  Server,
-  ShoppingCart,
+  Send, CheckCircle, AlertCircle, Loader2,
+  Mail, Github, Linkedin, MessageCircle,
 } from "lucide-react";
+
+// A second WebGL scene, mirroring the hero (different shape for variety).
+const Scene3D = lazy(() => import("../components/Hero3D"));
+
+const contactLinks = [
+  { icon: Mail, label: "Email", href: "mailto:maarijwaseem7@gmail.com" },
+  { icon: MessageCircle, label: "WhatsApp", href: "https://wa.me/923240236991" },
+  { icon: Github, label: "GitHub", href: "https://github.com/maarijwaseem2" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/maarijwaseem2" },
+];
 
 const Contact = () => {
   const { isDarkMode } = useTheme();
+  const accessKey = import.meta.env.VITE_WEB3FORMS_KEY;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -17,262 +26,262 @@ const Contact = () => {
     subject: "",
     message: "",
   });
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const mailtoLink = `mailto:maarijwaseem7@gmail.com?subject=${encodeURIComponent(
-      formData.subject || "Portfolio Contact",
+  const mailtoFallback = () => {
+    const link = `mailto:maarijwaseem7@gmail.com?subject=${encodeURIComponent(
+      formData.subject || "Portfolio enquiry"
     )}&body=${encodeURIComponent(
-      `Name: ${formData.name}
-Email: ${formData.email}
-Subject: ${formData.subject}
-
-Message:
-${formData.message}
-
----
-Sent from Portfolio Contact Form`,
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`
     )}`;
-    window.location.href = mailtoLink;
-    setShowSuccess(true);
-    setFormData({ name: "", email: "", subject: "", message: "" });
-    setTimeout(() => setShowSuccess(false), 3000);
+    window.location.href = link;
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // No key configured yet — open the user's mail client instead.
+    if (!accessKey) {
+      mailtoFallback();
+      return;
+    }
+
+    setStatus("sending");
+    try {
+      const res = await fetch("https://api.web3forms.com/api/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject || `New message from ${formData.name}`,
+          message: formData.message,
+          from_name: "Portfolio — Syed Abdul Maarij",
+          botcheck: "",
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatus("success");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch (err) {
+      setStatus("error");
+    }
+  };
+
+  const fieldClass = `w-full rounded-xl border px-5 py-3.5 outline-none transition-all duration-300 focus:ring-2 focus:ring-indigo-500/30 ${
+    isDarkMode
+      ? "border-white/10 bg-ink/60 text-white placeholder-slate-500 focus:border-indigo-400"
+      : "border-slate-200 bg-slate-50 text-slate-900 placeholder-slate-400 focus:border-indigo-400"
+  }`;
+  const labelClass = `mb-2 block text-sm font-medium ${
+    isDarkMode ? "text-slate-300" : "text-slate-700"
+  }`;
 
   return (
-    <section className="py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Left Column - Improved "Let's Build Together" section */}
-          <div>
-            <h2
-              className={`text-4xl md:text-5xl font-bold mb-6 ${
-                isDarkMode ? "text-white" : "text-gray-900"
-              }`}
-            >
-              Let's Build{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Together
-              </span>
-            </h2>
-            <p
-              className={`text-lg mb-12 ${
-                isDarkMode ? "text-gray-400" : "text-gray-600"
-              }`}
-            >
-              Whether you need to scale an existing system or build something
-              brand new, I'm here to translate your vision into robust digital
-              solutions.
-            </p>
-
-            <div className="space-y-6">
-              {[
-                {
-                  icon: <Server className="w-8 h-8" />,
-                  title: "Web Applications",
-                  description:
-                    "Modern, responsive websites and web apps optimized for scale.",
-                  color: "blue",
-                },
-                {
-                  icon: <ShoppingCart className="w-8 h-8" />,
-                  title: "E-commerce Stores",
-                  description:
-                    "Complete online shopping solutions designed for conversion.",
-                  color: "emerald",
-                },
-                {
-                  icon: <Smartphone className="w-8 h-8" />,
-                  title: "Business Solutions",
-                  description:
-                    "Custom tools & internal dashboards to streamline your operations.",
-                  color: "purple",
-                },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className={`flex items-start gap-4 p-6 rounded-2xl transition-all duration-300 ${
-                    isDarkMode
-                      ? "bg-gray-800/80 border border-gray-700/50 hover:bg-gray-800"
-                      : "bg-white border border-gray-100 hover:shadow-lg"
-                  }`}
-                >
-                  <div
-                    className={`p-4 rounded-xl bg-${item.color}-500/10 text-${item.color}-500`}
-                  >
-                    {item.icon}
-                  </div>
-                  <div>
-                    <h3
-                      className={`text-xl font-bold mb-2 ${
-                        isDarkMode ? "text-white" : "text-gray-900"
-                      }`}
-                    >
-                      {item.title}
-                    </h3>
-                    <p
-                      className={`${
-                        isDarkMode ? "text-gray-400" : "text-gray-600"
-                      }`}
-                    >
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-12">
-              <a
-                href="mailto:maarijwaseem7@gmail.com"
-                className="inline-flex text-lg items-center gap-2 font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
-              >
-                Start Now →
-              </a>
-            </div>
-          </div>
-
-          {/* Right Column - Contact Form */}
-          <div
-            className={`p-8 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden backdrop-blur-xl ${
-              isDarkMode
-                ? "bg-gray-800/90 border border-gray-700/50"
-                : "bg-white/90 border border-gray-200"
+    <section id="contact" className="relative py-10 sm:py-14">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Reveal className="mb-10 text-center">
+          <h2
+            className={`font-display text-4xl font-bold md:text-5xl ${
+              isDarkMode ? "text-white" : "text-slate-900"
             }`}
           >
-            {/* Form decorative background */}
-            <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-blue-500/10 blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 rounded-full bg-purple-500/10 blur-3xl"></div>
+            Let&apos;s build something that scales
+          </h2>
+          <div className="mx-auto mt-4 h-1 w-20 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-400" />
+          <p
+            className={`mx-auto mt-4 max-w-2xl text-lg ${
+              isDarkMode ? "text-slate-400" : "text-slate-600"
+            }`}
+          >
+            Have a system to scale or a product to build? Let&apos;s talk.
+          </p>
+        </Reveal>
 
-            <h3
-              className={`text-2xl font-bold mb-8 relative z-10 ${isDarkMode ? "text-white" : "text-gray-900"}`}
+        <div className="grid items-start gap-12 lg:grid-cols-2">
+          {/* Left: 3D showpiece + direct links */}
+          <Reveal>
+            <div
+              className={`relative overflow-hidden rounded-3xl border ${
+                isDarkMode
+                  ? "border-white/10 bg-white/[0.04]"
+                  : "border-slate-200 bg-white"
+              }`}
             >
-              Send Me a Message
-            </h3>
-
-            {showSuccess && (
-              <div className="mb-6 p-4 rounded-lg bg-green-500/20 border border-green-500/50 flex items-center gap-3 text-green-500 animate-fade-in relative z-10">
-                <CheckCircle className="w-5 h-5 flex-shrink-0" />
-                <p>Opening your email client... Thank you for reaching out!</p>
+              <div className="relative h-72 sm:h-80">
+                <div className="pointer-events-none absolute inset-10 rounded-full bg-gradient-to-tr from-indigo-500/20 via-violet-500/10 to-transparent blur-2xl" />
+                <Suspense fallback={<div className="absolute inset-0" />}>
+                  <Scene3D
+                    variant="torus"
+                    particleCount={360}
+                    speed={1.15}
+                    className="absolute inset-0 h-full w-full"
+                  />
+                </Suspense>
               </div>
-            )}
+            </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label
-                    className={`block text-sm font-medium mb-2 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}
+            <p
+              className={`mt-6 text-sm font-medium ${
+                isDarkMode ? "text-slate-400" : "text-slate-600"
+              }`}
+            >
+              Prefer a direct line? Reach me here:
+            </p>
+            <div className="mt-3 flex flex-wrap gap-3">
+              {contactLinks.map((link) => {
+                const Icon = link.icon;
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target={link.href.startsWith("http") ? "_blank" : undefined}
+                    rel="noopener noreferrer"
+                    className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-300 ${
+                      isDarkMode
+                        ? "border-white/10 bg-white/5 text-slate-200 hover:border-indigo-400 hover:text-white"
+                        : "border-slate-200 bg-white text-slate-700 hover:border-indigo-400 hover:text-indigo-600"
+                    }`}
                   >
-                    Your Name
-                  </label>
+                    <Icon className="h-4 w-4" />
+                    {link.label}
+                  </a>
+                );
+              })}
+            </div>
+          </Reveal>
+
+          {/* Right: form */}
+          <Reveal delay={0.1}>
+            <div
+              className={`relative overflow-hidden rounded-3xl border p-7 md:p-9 ${
+                isDarkMode
+                  ? "border-white/10 bg-white/[0.04]"
+                  : "border-slate-200 bg-white shadow-xl"
+              }`}
+            >
+              <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-indigo-500/10 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-cyan-500/10 blur-3xl" />
+
+              <h3
+                className={`relative z-10 font-display text-2xl font-bold ${
+                  isDarkMode ? "text-white" : "text-slate-900"
+                }`}
+              >
+                Send a message
+              </h3>
+
+              {status === "success" && (
+                <div className="relative z-10 mt-6 flex items-start gap-3 rounded-xl border border-green-500/40 bg-green-500/10 p-4 text-green-400">
+                  <CheckCircle className="mt-0.5 h-5 w-5 shrink-0" />
+                  <p className="text-sm">
+                    Message sent. Thanks for reaching out — I&apos;ll get back to
+                    you soon.
+                  </p>
+                </div>
+              )}
+              {status === "error" && (
+                <div className="relative z-10 mt-6 flex items-start gap-3 rounded-xl border border-red-500/40 bg-red-500/10 p-4 text-red-400">
+                  <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
+                  <p className="text-sm">
+                    Something went wrong. Please email me directly at
+                    maarijwaseem7@gmail.com.
+                  </p>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="relative z-10 mt-6 space-y-5">
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                  <div>
+                    <label className={labelClass}>Your name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className={fieldClass}
+                      placeholder="Jane Doe"
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Email address</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className={fieldClass}
+                      placeholder="jane@example.com"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className={labelClass}>Subject</label>
                   <input
                     type="text"
-                    name="name"
-                    value={formData.name}
+                    name="subject"
+                    value={formData.subject}
                     onChange={handleChange}
-                    required
-                    className={`w-full px-5 py-4 rounded-xl outline-none transition-all duration-300 ${
-                      isDarkMode
-                        ? "bg-gray-900/50 border-gray-700 focus:border-blue-500 text-white placeholder-gray-500"
-                        : "bg-gray-50 border-gray-200 focus:border-blue-500 text-gray-900 placeholder-gray-400"
-                    } border focus:ring-2 focus:ring-blue-500/20`}
-                    placeholder="John Doe"
+                    className={fieldClass}
+                    placeholder="What's this about?"
                   />
                 </div>
                 <div>
-                  <label
-                    className={`block text-sm font-medium mb-2 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}
-                  >
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
+                  <label className={labelClass}>Message</label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
                     onChange={handleChange}
                     required
-                    className={`w-full px-5 py-4 rounded-xl outline-none transition-all duration-300 ${
-                      isDarkMode
-                        ? "bg-gray-900/50 border-gray-700 focus:border-blue-500 text-white placeholder-gray-500"
-                        : "bg-gray-50 border-gray-200 focus:border-blue-500 text-gray-900 placeholder-gray-400"
-                    } border focus:ring-2 focus:ring-blue-500/20`}
-                    placeholder="john@example.com"
+                    rows="4"
+                    className={`${fieldClass} resize-none`}
+                    placeholder="Tell me about your project..."
                   />
                 </div>
-              </div>
 
-              <div>
-                <label
-                  className={`block text-sm font-medium mb-2 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}
-                >
-                  Subject
-                </label>
+                {/* honeypot */}
                 <input
-                  type="text"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className={`w-full px-5 py-4 rounded-xl outline-none transition-all duration-300 ${
-                    isDarkMode
-                      ? "bg-gray-900/50 border-gray-700 focus:border-blue-500 text-white placeholder-gray-500"
-                      : "bg-gray-50 border-gray-200 focus:border-blue-500 text-gray-900 placeholder-gray-400"
-                  } border focus:ring-2 focus:ring-blue-500/20`}
-                  placeholder="How can I help you?"
+                  type="checkbox"
+                  name="botcheck"
+                  className="hidden"
+                  style={{ display: "none" }}
+                  tabIndex="-1"
+                  autoComplete="off"
                 />
-              </div>
 
-              <div>
-                <label
-                  className={`block text-sm font-medium mb-2 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}
+                <button
+                  type="submit"
+                  disabled={status === "sending"}
+                  className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 px-8 py-4 font-semibold text-white shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-indigo-500/40 disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  Message
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows="4"
-                  className={`w-full px-5 py-4 rounded-xl outline-none transition-all duration-300 resize-none ${
-                    isDarkMode
-                      ? "bg-gray-900/50 border-gray-700 focus:border-blue-500 text-white placeholder-gray-500"
-                      : "bg-gray-50 border-gray-200 focus:border-blue-500 text-gray-900 placeholder-gray-400"
-                  } border focus:ring-2 focus:ring-blue-500/20`}
-                  placeholder="Write your message here..."
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full relative group overflow-hidden rounded-xl p-[1px]"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 opacity-100 group-hover:bg-[length:200%_auto] animate-gradient transition-all duration-500"></div>
-                <div
-                  className={`relative px-8 py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 ${
-                    isDarkMode
-                      ? "bg-gray-900 group-hover:bg-gray-900/50"
-                      : "bg-white group-hover:bg-white/50"
-                  }`}
-                >
-                  <span
-                    className={`font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent group-hover:text-white transition-colors duration-300`}
-                  >
-                    Send Message
-                  </span>
-                  <Send className="w-5 h-5 text-purple-600 group-hover:text-white transition-colors duration-300" />
-                </div>
-              </button>
-            </form>
-          </div>
+                  {status === "sending" ? (
+                    <>
+                      <Loader2 className="h-5 w-5 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      Send message
+                      <Send className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

@@ -1,140 +1,166 @@
 import React from "react";
 import { ExternalLink } from "lucide-react";
 import { useTheme } from "../components/ThemeContext";
+import Reveal from "../components/Reveal";
+import TiltCard from "../components/TiltCard";
+
+const projects = [
+  {
+    title: "Alahdeen B2B Marketplace",
+    category: "B2B marketplace",
+    image: "/alahdeen.webp",
+    description:
+      "A B2B marketplace connecting wholesalers and retailers — lead management, chat, notifications, and OpenAI-powered features on top of optimized REST APIs.",
+    tags: ["PHP", "MySQL", "React", "OpenAI", "AWS"],
+    link: "https://alahdeen.com",
+  },
+  {
+    title: "Vita Care",
+    category: "Healthcare platform",
+    image: "/vita-care.webp",
+    description:
+      "A healthcare platform where patients find doctors by city and specialty, book appointments in real time, and track medical history — with an AI symptom checker that suggests the right specialist across patient and doctor portals.",
+    tags: ["Next.js", "PHP", "Python", "AI"],
+    link: "https://vita-cares.vercel.app/",
+  },
+  {
+    title: "Go Green Pakistan",
+    category: "Green e-commerce",
+    image: "/go-green.webp",
+    description:
+      "A green e-commerce platform to buy plants and garden supplies, sponsor tree plantations, and book verified gardeners — with COD checkout, an admin dashboard, and an AI chatbot that recommends plants by location.",
+    tags: ["React", "NestJS", "Redis", "AI"],
+    link: "https://go-green-pakistan.vercel.app/",
+  },
+  {
+    title: "AI Content Studio",
+    category: "AI SaaS",
+    image: "/ai-content.webp",
+    description:
+      "An AI SaaS that generates SEO meta titles and descriptions, with credit-based plans and an admin portal. Built with React, NestJS, and PostgreSQL.",
+    tags: ["React", "NestJS", "PostgreSQL"],
+    link: "https://ai-content-studio-liard.vercel.app",
+  },
+  {
+    title: "ServiceSync Pro",
+    category: "Home-services marketplace",
+    image: "/service.webp",
+    description:
+      "A two-sided marketplace linking verified service providers with customers — separate accounts, admin verification, and a search-and-request workflow.",
+    tags: ["React", "Node.js", "MongoDB"],
+    link: "https://servicesync-pro.vercel.app",
+  },
+  {
+    title: "CineSlot",
+    category: "Cinema booking",
+    image: "/movie.webp",
+    description:
+      "A cinema booking app with real-time seat selection, showtime browsing, and an admin panel for movies, schedules, and seating layouts.",
+    tags: ["React", "Node.js", "MongoDB"],
+    link: "https://maarijwaseem2-showtime-buddy.vercel.app",
+  },
+];
 
 const Projects = () => {
   const { isDarkMode } = useTheme();
 
-  const projects = [
-    {
-      title: "Alahdeen B2B Marketplace",
-      category: "Production · Live",
-      image: "/alahdeen.png",
-      description:
-        "B2B marketplace connecting wholesalers and retailers — lead management, chat, notifications, and OpenAI-powered features with optimized REST APIs.",
-      gradient: "from-[#0ea5e9] to-[#2563eb]",
-      link: "https://alahdeen.com",
-    },
-    {
-      title: "Khata Alahdeen",
-      category: "AI Bookkeeping · Live",
-      image: "/khata.png",
-      description:
-        "AI-powered digital khata for wholesalers and retailers to track debits, credits, and daily transactions within the Alahdeen ecosystem.",
-      gradient: "from-[#10b981] to-[#047857]",
-      link: "https://khata.alahdeen.com",
-    },
-    {
-      title: "AI Content Studio",
-      category: "Full-Stack AI SaaS · Live",
-      image: "/ai-content.jfif",
-      description:
-        "AI SaaS that generates SEO meta titles and descriptions, with credit-based plans and an admin portal. Built with React, NestJS, and PostgreSQL.",
-      gradient: "from-[#8b5cf6] to-[#6366f1]",
-      link: "https://ai-content-studio-liard.vercel.app",
-    },
-    {
-      title: "ServiceSync Pro",
-      category: "Home-Services Marketplace · Live",
-      image: "/service.png",
-      description:
-        "Two-sided marketplace linking verified service providers with customers — separate accounts, admin verification, and search-and-request workflow.",
-      gradient: "from-[#f59e0b] to-[#ea580c]",
-      link: "https://servicesync-pro.vercel.app",
-    },
-    {
-      title: "CineSlot",
-      category: "Cinema Booking · Live",
-      image: "/movie.jfif",
-      description:
-        "Cinema booking app with real-time seat selection, showtime browsing, and an admin panel for movies, schedules, and seating layouts.",
-      gradient: "from-[#ef4444] to-[#dc2626]",
-      link: "https://maarijwaseem2-showtime-buddy.vercel.app",
-    },
-  ];
-
   return (
-    <section
-      className={`py-10 transition-all duration-500 ${
-        isDarkMode ? "bg-gray-800" : "bg-white"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+    <section id="projects" className="relative py-10 sm:py-14">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Reveal className="mb-10 text-center">
           <h2
-            className={`text-5xl md:text-6xl font-bold mb-6 ${
-              isDarkMode ? "text-white" : "text-gray-900"
+            className={`font-display text-4xl font-bold md:text-5xl ${
+              isDarkMode ? "text-white" : "text-slate-900"
             }`}
           >
             Projects
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-6"></div>
+          <div className="mx-auto mt-4 h-1 w-20 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-400" />
           <p
-            className={`text-xl max-w-3xl mx-auto ${
-              isDarkMode ? "text-gray-300" : "text-gray-600"
+            className={`mx-auto mt-4 max-w-2xl text-lg ${
+              isDarkMode ? "text-slate-400" : "text-slate-600"
             }`}
           >
-            Production systems and full-stack products I have built and shipped
+            Production systems and full-stack products I&apos;ve built and shipped
           </p>
-        </div>
+        </Reveal>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => (
-            <div
-              key={index}
-              className={`group rounded-2xl overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-2xl ${
-                isDarkMode
-                  ? "bg-gray-900 shadow-xl border border-gray-700"
-                  : "bg-white shadow-xl"
-              }`}
-            >
-              {/* Project Image */}
-              <div className="relative overflow-hidden h-48">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                {project.link && (
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
-                    <div className="text-center">
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-white text-gray-900 px-6 py-3 rounded-full font-semibold hover:scale-110 transition-transform duration-300 flex items-center gap-2 mx-auto"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        View Project
-                      </a>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Project Details */}
-              <div className="p-4">
-                <div
-                  className={`text-sm font-bold mb-2 bg-gradient-to-r ${project.gradient} bg-clip-text text-transparent`}
-                >
-                  {project.category}
+            <Reveal key={index} delay={Math.min(index * 0.05, 0.25)}>
+              <TiltCard
+                max={5}
+                className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border transition-colors duration-300 ${
+                  isDarkMode
+                    ? "border-white/10 bg-white/[0.04] hover:border-white/20"
+                    : "border-slate-200 bg-white hover:border-indigo-200 hover:shadow-xl"
+                }`}
+              >
+                {/* Thumbnail */}
+                <div className="relative h-44 overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/55 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-400" />
+                    </span>
+                    Live
+                  </span>
                 </div>
-                <h3
-                  className={`text-2xl font-bold mb-3 ${
-                    isDarkMode ? "text-white" : "text-gray-900"
-                  }`}
-                >
-                  {project.title}
-                </h3>
-                <p
-                  className={`mb-4 leading-relaxed ${
-                    isDarkMode ? "text-gray-300" : "text-gray-600"
-                  }`}
-                >
-                  {project.description}
-                </p>
-              </div>
-            </div>
+
+                {/* Body */}
+                <div className="flex flex-1 flex-col p-6">
+                  <span className="text-sm font-semibold text-indigo-400">
+                    {project.category}
+                  </span>
+                  <h3
+                    className={`mt-2 font-display text-xl font-bold ${
+                      isDarkMode ? "text-white" : "text-slate-900"
+                    }`}
+                  >
+                    {project.title}
+                  </h3>
+                  <p
+                    className={`mt-3 flex-1 text-sm leading-relaxed ${
+                      isDarkMode ? "text-slate-400" : "text-slate-600"
+                    }`}
+                  >
+                    {project.description}
+                  </p>
+
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className={`rounded-md px-2.5 py-1 text-xs font-medium ${
+                          isDarkMode
+                            ? "border border-white/10 bg-white/5 text-slate-300"
+                            : "bg-slate-100 text-slate-700"
+                        }`}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-indigo-500/40"
+                  >
+                    Live Demo
+                    <ExternalLink className="h-4 w-4 transition-transform duration-300 group-hover:rotate-45" />
+                  </a>
+                </div>
+                <span className="pointer-events-none absolute inset-0 z-20 -translate-x-full -skew-x-12 bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-[900ms] ease-out group-hover:translate-x-full" />
+              </TiltCard>
+            </Reveal>
           ))}
         </div>
       </div>

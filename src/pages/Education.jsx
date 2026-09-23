@@ -1,186 +1,137 @@
 import React from "react";
 import { useTheme } from "../components/ThemeContext";
+import Reveal from "../components/Reveal";
 import { GraduationCap, Calendar, Award } from "lucide-react";
+
+const education = [
+  {
+    icon: GraduationCap,
+    accent: "from-indigo-500 to-violet-600",
+    degree: "Bachelor's in Computer Science",
+    school: "FAST — National University of Computer and Emerging Sciences (NUCES)",
+    period: "2021 — 2025",
+    description:
+      "Completed a Bachelor's degree in Computer Science with a focus on software engineering and web development. Built strong problem-solving foundations through academic and professional projects, including full-stack applications and e-commerce platforms.",
+    subjects: [
+      "Data Structures",
+      "Algorithms",
+      "Web Development",
+      "Database Systems",
+      "Software Engineering",
+    ],
+  },
+  {
+    icon: Award,
+    accent: "from-cyan-500 to-teal-600",
+    degree: "Intermediate in Pre-Engineering",
+    school: "Adamjee Govt. Science College",
+    period: "2019 — 2021",
+    description:
+      "Completed Intermediate in Pre-Engineering with a focus on Mathematics, Physics, and Chemistry — building the analytical foundation for a Computer Science degree.",
+    subjects: [
+      "Mathematics",
+      "Physics",
+      "Chemistry",
+      "Problem Solving",
+      "Analytical Thinking",
+    ],
+  },
+];
 
 const Education = () => {
   const { isDarkMode } = useTheme();
 
   return (
-    <section
-      className={`py-10 transition-all duration-500 ${
-        isDarkMode ? "bg-gray-900" : "bg-gray-50"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+    <section id="education" className="relative py-10 sm:py-14">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Reveal className="mb-10 text-center">
           <h2
-            className={`text-5xl md:text-6xl font-bold mb-6 ${
-              isDarkMode ? "text-white" : "text-gray-900"
+            className={`font-display text-4xl font-bold md:text-5xl ${
+              isDarkMode ? "text-white" : "text-slate-900"
             }`}
           >
             Education
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-6"></div>
+          <div className="mx-auto mt-4 h-1 w-20 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-400" />
           <p
-            className={`text-xl ${
-              isDarkMode ? "text-gray-300" : "text-gray-600"
+            className={`mt-4 text-lg ${
+              isDarkMode ? "text-slate-400" : "text-slate-600"
             }`}
           >
-            My academic journey and educational background
+            Academic foundation
           </p>
-        </div>
+        </Reveal>
 
-        <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {/* University Education */}
-          <div
-            className={`rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:shadow-2xl ${
-              isDarkMode
-                ? "bg-gray-800 shadow-xl border border-gray-700"
-                : "bg-white shadow-xl border border-gray-100"
-            }`}
-          >
-            <div className="flex items-start gap-6">
-              <div className="bg-gradient-to-br from-blue-500 to-purple-600 p-4 rounded-xl flex-shrink-0 shadow-lg">
-                <GraduationCap className="w-10 h-10 text-white" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-3">
-                  <h3
-                    className={`text-2xl font-bold ${
-                      isDarkMode ? "text-white" : "text-gray-900"
-                    }`}
-                  >
-                    Bachelor's in Computer Science
-                  </h3>
-                </div>
-                <p className="text-blue-600 font-bold text-lg mb-3">
-                  FAST - National University of Computer and Emerging Science
-                  (NUCES)
-                </p>
-                <div className="flex items-center gap-2 mb-4">
-                  <Calendar
-                    className={`w-4 h-4 ${
-                      isDarkMode ? "text-gray-400" : "text-gray-500"
-                    }`}
-                  />
-                  <span
-                    className={`${
-                      isDarkMode ? "text-gray-400" : "text-gray-500"
-                    }`}
-                  >
-                    2021 - 2025
-                  </span>
-                </div>
-                <p
-                  className={`leading-relaxed mb-4 ${
-                    isDarkMode ? "text-gray-300" : "text-gray-600"
+        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-2">
+          {education.map((ed, i) => {
+            const Icon = ed.icon;
+            return (
+              <Reveal key={i} delay={i * 0.08}>
+                <div
+                  className={`group h-full rounded-3xl border p-8 transition-all duration-300 hover:-translate-y-1 ${
+                    isDarkMode
+                      ? "border-white/10 bg-white/[0.04] hover:border-indigo-400/40 hover:shadow-2xl hover:shadow-indigo-500/10"
+                      : "border-slate-200 bg-white hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/10"
                   }`}
                 >
-                  Pursuing a Bachelor's degree in Computer Science with a focus
-                  on
-                  <span className="font-semibold">
-                    {" "}
-                    software engineering and web development
-                  </span>
-                  . Developed strong{" "}
-                  <span className="font-semibold">
-                    problem-solving skills
-                  </span>{" "}
-                  through academic and professional projects, including{" "}
-                  <span className="font-semibold">
-                    full-stack applications and e-commerce platforms
-                  </span>
-                  .
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    "Data Structures",
-                    "Algorithms",
-                    "Web Development",
-                    "Database Systems",
-                    "Software Engineering",
-                  ].map((subject) => (
-                    <span
-                      key={subject}
-                      className="px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 text-blue-700 rounded-full text-sm font-medium"
+                  <div className="flex items-start gap-5">
+                    <div
+                      className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${ed.accent} shadow-lg transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110`}
                     >
-                      {subject}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+                      <Icon className="h-8 w-8 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3
+                        className={`font-display text-xl font-bold md:text-2xl ${
+                          isDarkMode ? "text-white" : "text-slate-900"
+                        }`}
+                      >
+                        {ed.degree}
+                      </h3>
+                      <p
+                        className={`mt-2 text-sm font-semibold md:text-base ${
+                          isDarkMode ? "text-indigo-300" : "text-indigo-600"
+                        }`}
+                      >
+                        {ed.school}
+                      </p>
+                      <div
+                        className={`mt-3 flex items-center gap-2 text-sm ${
+                          isDarkMode ? "text-slate-400" : "text-slate-500"
+                        }`}
+                      >
+                        <Calendar className="h-4 w-4" />
+                        {ed.period}
+                      </div>
+                    </div>
+                  </div>
 
-          {/* College Education */}
-          <div
-            className={`rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:shadow-2xl ${
-              isDarkMode
-                ? "bg-gray-800 shadow-xl border border-gray-700"
-                : "bg-white shadow-xl border border-gray-100"
-            }`}
-          >
-            <div className="flex items-start gap-6">
-              <div className="bg-gradient-to-br from-green-500 to-emerald-600 p-4 rounded-xl flex-shrink-0 shadow-lg">
-                <Award className="w-10 h-10 text-white" />
-              </div>
-              <div className="flex-1">
-                <h3
-                  className={`text-2xl font-bold mb-3 ${
-                    isDarkMode ? "text-white" : "text-gray-900"
-                  }`}
-                >
-                  Intermediate in Pre-Engineering
-                </h3>
-                <p className="text-green-600 font-bold text-lg mb-3">
-                  Adamjee Govt. Science College
-                </p>
-                <div className="flex items-center gap-2 mb-4">
-                  <Calendar
-                    className={`w-4 h-4 ${
-                      isDarkMode ? "text-gray-400" : "text-gray-500"
-                    }`}
-                  />
-                  <span
-                    className={`${
-                      isDarkMode ? "text-gray-400" : "text-gray-500"
+                  <p
+                    className={`mt-5 leading-relaxed ${
+                      isDarkMode ? "text-slate-300" : "text-slate-600"
                     }`}
                   >
-                    2019 - 2021
-                  </span>
+                    {ed.description}
+                  </p>
+
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {ed.subjects.map((subject) => (
+                      <span
+                        key={subject}
+                        className={`rounded-full border px-3 py-1 text-xs font-medium ${
+                          isDarkMode
+                            ? "border-indigo-400/20 bg-indigo-500/10 text-indigo-300"
+                            : "border-indigo-100 bg-indigo-50 text-indigo-700"
+                        }`}
+                      >
+                        {subject}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <p
-                  className={`leading-relaxed mb-4 ${
-                    isDarkMode ? "text-gray-300" : "text-gray-600"
-                  }`}
-                >
-                  Completed Intermediate in Pre-Engineering with a focus on
-                  <span className="font-semibold">
-                    {" "}
-                    Mathematics, Physics, and Chemistry
-                  </span>
-                  . Built a strong academic foundation for further studies in
-                  Computer Science.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    "Mathematics",
-                    "Physics",
-                    "Chemistry",
-                    "Problem Solving",
-                    "Analytical Thinking",
-                  ].map((subject) => (
-                    <span
-                      key={subject}
-                      className="px-3 py-1 bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 rounded-full text-sm font-medium"
-                    >
-                      {subject}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

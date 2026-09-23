@@ -1,194 +1,127 @@
 import React from "react";
 import { useTheme } from "../components/ThemeContext";
+import Reveal from "../components/Reveal";
+import TiltCard from "../components/TiltCard";
+import { MapPin } from "lucide-react";
+
+const stats = [
+  { value: "2.5+", label: "Years experience" },
+  { value: "20+", label: "Projects shipped" },
+  { value: "6", label: "Live products" },
+];
 
 const About = () => {
   const { isDarkMode } = useTheme();
 
-  const skills = [
-    {
-      name: "JavaScript/TypeScript",
-      level: 90,
-      color: "from-yellow-500 to-orange-500",
-    },
-    {
-      name: "React/Next.js",
-      level: 85,
-      color: "from-blue-500 to-cyan-500",
-    },
-    {
-      name: "Node.js/Express/NestJS",
-      level: 80,
-      color: "from-green-500 to-emerald-500",
-    },
-    {
-      name: "PHP/Laravel",
-      level: 65,
-      color: "from-blue-600 to-indigo-600",
-    },
-    {
-      name: "MySQL/MongoDB/PostgreSQL",
-      level: 80,
-      color: "from-purple-500 to-pink-500",
-    },
-    {
-      name: "Shopify Development",
-      level: 70,
-      color: "from-green-500 to-lime-500",
-    },
-    {
-      name: "UI/UX Design",
-      level: 70,
-      color: "from-red-500 to-orange-500",
-    },
-  ];
-
   return (
-    <section
-      className={`py-10 transition-all duration-500 ${
-        isDarkMode ? "bg-gray-800" : "bg-white"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+    <section id="about" className="relative py-10 sm:py-14">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Reveal className="mb-10 text-center">
           <h2
-            className={`text-5xl md:text-6xl font-bold mb-6 ${
-              isDarkMode ? "text-white" : "text-gray-900"
+            className={`font-display text-4xl font-bold md:text-5xl ${
+              isDarkMode ? "text-white" : "text-slate-900"
             }`}
           >
-            About Me
+            About me
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-6"></div>
+          <div className="mx-auto mt-4 h-1 w-20 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-400" />
           <p
-            className={`text-xl ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}
+            className={`mt-4 text-lg ${
+              isDarkMode ? "text-slate-400" : "text-slate-600"
+            }`}
           >
-            Get to know me better
+            The engineer behind the work
           </p>
-        </div>
+        </Reveal>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <h3
-              className={`text-3xl font-bold ${
-                isDarkMode ? "text-white" : "text-gray-900"
-              }`}
-            >
-              My Journey
-            </h3>
-            <p
-              className={`text-lg leading-relaxed ${
-                isDarkMode ? "text-gray-300" : "text-gray-600"
-              }`}
-            >
-              Passionate about building impactful digital products, I began my
-              journey in computer science with a strong foundation in both
-              frontend and backend development, eventually evolving into a
-              Full-Stack Engineer with a backend-focused approach.
-            </p>
-            <p
-              className={`text-lg leading-relaxed ${
-                isDarkMode ? "text-gray-300" : "text-gray-600"
-              }`}
-            >
-              I have contributed to the development of scalable web
-              applications, robust APIs, and business-critical systems, with a
-              strong emphasis on performance, reliability, and clean
-              architecture.               Currently, I am working as a Full Stack Developer at
-              Alahdeen, a B2B marketplace platform in Pakistan.
-              My role involves building secure backend modules, designing
-              RESTful APIs, and developing database-driven features.
-            </p>
-            <p
-              className={`text-lg leading-relaxed ${
-                isDarkMode ? "text-gray-300" : "text-gray-600"
-              }`}
-            >
-              I also have hands-on experience integrating modern tools and
-              cloud-based solutions, including Firebase for real-time workflows,
-              OpenAI for AI-powered automation, and AWS for deployment and
-              scalability. I enjoy solving complex problems, optimizing system
-              performance, and collaborating with teams to deliver high-quality
-              solutions that enhance user experience and drive business value.
-            </p>
-
-            <div className="grid grid-cols-2 gap-6 mt-8">
+        <div className="grid items-center gap-8 lg:grid-cols-[23rem_1fr] lg:gap-12">
+          {/* Photo */}
+          <Reveal className="flex justify-center lg:justify-start">
+            <TiltCard max={6} className="relative w-full max-w-sm">
+              <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-tr from-indigo-500/30 via-violet-500/20 to-cyan-400/20 blur-2xl" />
               <div
-                className={`text-center p-6 rounded-xl transition-all duration-300 hover:scale-105 ${
-                  isDarkMode
-                    ? "bg-gray-700 hover:bg-gray-600"
-                    : "bg-gray-50 hover:bg-gray-100"
+                className={`relative overflow-hidden rounded-[1.75rem] border ${
+                  isDarkMode ? "border-white/10" : "border-slate-200"
                 }`}
               >
-                <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-                  2+
-                </div>
-                <div
-                  className={`font-medium ${
-                    isDarkMode ? "text-gray-300" : "text-gray-600"
-                  }`}
-                >
-                  Years Experience
+                <img
+                  src="/profile.jfif"
+                  alt="Syed Abdul Maarij"
+                  loading="lazy"
+                  className="aspect-[4/5] min-h-[22rem] w-full object-cover object-[50%_2%] sm:min-h-[26rem]"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/90 to-transparent p-5">
+                  <div className="flex items-center gap-2 text-sm font-medium text-slate-200">
+                    <MapPin className="h-4 w-4 text-cyan-300" />
+                    Karachi, Pakistan
+                  </div>
                 </div>
               </div>
-              <div
-                className={`text-center p-6 rounded-xl transition-all duration-300 hover:scale-105 ${
-                  isDarkMode
-                    ? "bg-gray-700 hover:bg-gray-600"
-                    : "bg-gray-50 hover:bg-gray-100"
+            </TiltCard>
+          </Reveal>
+
+          {/* Text */}
+          <div>
+            <Reveal>
+              <h3
+                className={`font-display text-3xl font-bold ${
+                  isDarkMode ? "text-white" : "text-slate-900"
                 }`}
               >
-                <div className="text-4xl font-bold bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent mb-2">
-                  20+
-                </div>
-                <div
-                  className={`font-medium ${
-                    isDarkMode ? "text-gray-300" : "text-gray-600"
-                  }`}
-                >
-                  Projects Completed
-                </div>
-              </div>
+                My journey
+              </h3>
+            </Reveal>
+
+            <div
+              className={`mt-5 space-y-4 text-base leading-relaxed md:text-lg ${
+                isDarkMode ? "text-slate-300" : "text-slate-600"
+              }`}
+            >
+              <Reveal as="p" delay={0.05}>
+                I&apos;m a full-stack engineer with a backend-focused approach,
+                building software that&apos;s meant to scale and last. What began
+                as curiosity in computer science is now shipping production
+                systems that real businesses depend on daily.
+              </Reveal>
+              <Reveal as="p" delay={0.1}>
+                At Alahdeen, a B2B marketplace in Pakistan, I build and maintain
+                core systems &mdash; secure backend modules, RESTful APIs, and
+                database-driven features that handle real traffic, with a focus
+                on clean architecture and reliability.
+              </Reveal>
+              <Reveal as="p" delay={0.15}>
+                I work hands-on with AI and cloud tooling &mdash; OpenAI for
+                automation, Firebase for real-time workflows, and AWS for
+                deployment and scale. I like owning problems end to end: from
+                data model to API to the interface users actually touch.
+              </Reveal>
             </div>
-          </div>
 
-          <div className="space-y-8">
-            <h3
-              className={`text-3xl font-bold ${
-                isDarkMode ? "text-white" : "text-gray-900"
-              }`}
-            >
-              Skills & Technologies
-            </h3>
-
-            {skills.map((skill, index) => (
-              <div key={index} className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span
-                    className={`font-semibold text-lg ${
-                      isDarkMode ? "text-gray-200" : "text-gray-700"
-                    }`}
-                  >
-                    {skill.name}
-                  </span>
-                  <span
-                    className={`font-bold ${
-                      isDarkMode ? "text-gray-400" : "text-gray-500"
-                    }`}
-                  >
-                    {skill.level}%
-                  </span>
-                </div>
-                <div
-                  className={`w-full rounded-full h-3 ${
-                    isDarkMode ? "bg-gray-700" : "bg-gray-200"
-                  }`}
-                >
+            <Reveal delay={0.2}>
+              <div className="mt-8 grid grid-cols-3 gap-4">
+                {stats.map((s) => (
                   <div
-                    className={`bg-gradient-to-r ${skill.color} h-3 rounded-full transition-all duration-1000 shadow-lg`}
-                    style={{ width: `${skill.level}%` }}
-                  ></div>
-                </div>
+                    key={s.label}
+                    className={`rounded-2xl border p-4 text-center transition-colors ${
+                      isDarkMode
+                        ? "border-white/10 bg-white/5"
+                        : "border-slate-200 bg-white"
+                    }`}
+                  >
+                    <div className="bg-gradient-to-r from-indigo-400 to-cyan-300 bg-clip-text font-display text-3xl font-bold text-transparent">
+                      {s.value}
+                    </div>
+                    <div
+                      className={`mt-1 text-xs font-medium sm:text-sm ${
+                        isDarkMode ? "text-slate-400" : "text-slate-600"
+                      }`}
+                    >
+                      {s.label}
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </Reveal>
           </div>
         </div>
       </div>
