@@ -6,18 +6,21 @@ import { useTheme } from "../components/ThemeContext";
 // text + CTAs paint immediately.
 const Hero3D = lazy(() => import("../components/Hero3D"));
 
+/** Served from /public — spaces must be encoded in fetch URLs */
+const CV_PUBLIC_PATH = "/Syed Abdul Maarij FullStack Engineer.pdf";
+
 const Home = () => {
   const { isDarkMode } = useTheme();
 
   const handleCVDownload = async () => {
     try {
-      const response = await fetch("/CV.pdf");
+      const response = await fetch(encodeURI(CV_PUBLIC_PATH));
       if (!response.ok) throw new Error("CV not found");
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = "Syed_Abdul_Maarij_CV.pdf";
+      link.download = "Syed_Abdul_Maarij_FullStack_Engineer.pdf";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
