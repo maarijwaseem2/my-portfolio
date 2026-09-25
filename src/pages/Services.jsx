@@ -88,13 +88,13 @@ const Services = () => {
           </p>
         </Reveal>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
               <Reveal key={index} delay={Math.min(index * 0.05, 0.3)}>
                 <div
-                  className={`group relative h-full overflow-hidden rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-2 ${
+                  className={`group relative h-full overflow-hidden rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-2 sm:p-6 ${
                     isDarkMode
                       ? "border-white/10 bg-white/[0.04] hover:border-indigo-400/40 hover:bg-white/[0.07] hover:shadow-2xl hover:shadow-indigo-500/10"
                       : "border-slate-200 bg-white hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/10"
@@ -107,12 +107,12 @@ const Services = () => {
                     className={`pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-gradient-to-br ${service.gradient} opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-30`}
                   />
                   <div
-                    className={`relative mb-5 inline-flex rounded-xl bg-gradient-to-br ${service.gradient} p-3.5 shadow-lg transition-all duration-300 group-hover:-rotate-6 group-hover:scale-110`}
+                    className={`relative mb-3 inline-flex rounded-xl bg-gradient-to-br ${service.gradient} p-3 sm:mb-5 sm:p-3.5 shadow-lg transition-all duration-300 group-hover:-rotate-6 group-hover:scale-110`}
                   >
-                    <Icon className="h-7 w-7 text-white" />
+                    <Icon className="h-6 w-6 text-white sm:h-7 sm:w-7" />
                   </div>
                   <h3
-                    className={`relative font-display text-lg font-bold transition-colors duration-300 ${
+                    className={`relative font-display text-base font-bold transition-colors duration-300 sm:text-lg ${
                       isDarkMode
                         ? "text-white group-hover:text-indigo-300"
                         : "text-slate-900 group-hover:text-indigo-600"
@@ -121,7 +121,7 @@ const Services = () => {
                     {service.title}
                   </h3>
                   <p
-                    className={`relative mt-2 text-sm leading-relaxed ${
+                    className={`relative mt-2 text-xs leading-relaxed sm:text-sm ${
                       isDarkMode ? "text-slate-400" : "text-slate-600"
                     }`}
                   >

@@ -85,9 +85,13 @@ const Projects = () => {
           </p>
         </Reveal>
 
-        <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+        <div className="-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-7 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">
           {projects.map((project, index) => (
-            <Reveal key={index} delay={Math.min(index * 0.05, 0.25)}>
+            <Reveal
+              key={index}
+              delay={Math.min(index * 0.05, 0.25)}
+              className="w-[82%] shrink-0 snap-start sm:w-auto"
+            >
               <TiltCard
                 max={5}
                 className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border transition-colors duration-300 ${

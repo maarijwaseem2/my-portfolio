@@ -133,7 +133,7 @@ const Navbar = () => {
       {/* Mobile menu */}
       <div
         className={`overflow-hidden transition-[max-height] duration-300 lg:hidden ${
-          open ? "max-h-96" : "max-h-0"
+          open ? "max-h-[32rem]" : "max-h-0"
         } ${isDarkMode ? "bg-ink/95" : "bg-white/95"} backdrop-blur-xl`}
       >
         <div className="flex flex-col gap-1 px-4 pb-4 pt-2">

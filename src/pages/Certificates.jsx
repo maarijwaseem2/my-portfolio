@@ -108,9 +108,11 @@ const Certificates = () => {
           </p>
         </Reveal>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">
           {certificates.map((c, i) => (
-            <Reveal key={i} delay={Math.min(i * 0.05, 0.25)}>
+            <Reveal key={i} delay={Math.min(i * 0.05, 0.25)}
+              className="w-[82%] shrink-0 snap-start sm:w-auto"
+            >
               <button
                 type="button"
                 onClick={() => setSelected(i)}
