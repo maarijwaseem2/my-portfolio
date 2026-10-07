@@ -7,6 +7,16 @@ import Reveal from "../components/Reveal";
 
 const certificates = [
   {
+    title: "Certificate of Participation — Alibaba Cloud AI Hackathon Pakistan 2026",
+    issuer: "Hackathon",
+    author:
+      "Vita Care — Doctor Appointment & Recommendation System · Healthcare track · NASTP Karachi",
+    date: "Oct 2026",
+    image: "/certificate/AI-Hackathon.jpg",
+    verifyUrl:
+      "https://aihackathon.cognix-pk.com/certificate/BJJJ-XCOT-WYVD",
+  },
+  {
     title: "Mastering Data Structures & Algorithms (C/C++)",
     issuer: "Udemy",
     author: "Abdul Bari",
@@ -68,6 +78,9 @@ const Certificates = () => {
       Coursera: isDarkMode
         ? "bg-blue-500/15 text-blue-300 border-blue-400/20"
         : "bg-blue-50 text-blue-700 border-blue-200",
+      Hackathon: isDarkMode
+        ? "bg-orange-500/15 text-orange-300 border-orange-400/20"
+        : "bg-orange-50 text-orange-700 border-orange-200",
     };
     return map[issuer] || "";
   };
@@ -241,15 +254,17 @@ const Certificates = () => {
                       {cert.issuer} · {cert.author} · {cert.date}
                     </p>
                   </div>
-                  <a
-                    href={cert.pdf}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:-translate-y-0.5"
-                  >
-                    Open PDF
-                    <ExternalLink className="h-4 w-4" />
-                  </a>
+                  {(cert.pdf || cert.verifyUrl) && (
+                    <a
+                      href={cert.pdf || cert.verifyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:-translate-y-0.5"
+                    >
+                      {cert.pdf ? "Open PDF" : "Verify certificate"}
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
+                  )}
                 </div>
               </motion.div>
             </motion.div>
